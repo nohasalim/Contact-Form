@@ -30,6 +30,7 @@ function App() {
       <form onSubmit={handelFormOnSubmit}>
         <label htmlFor="firstName">First Name *</label>
         <input
+          required
           id="firstName"
           name="firstName"
           onChange={handleOnchange}
@@ -38,6 +39,7 @@ function App() {
         ></input>
         <label htmlFor="lastName">Last Name *</label>
         <input
+          required
           name="lastName"
           value={formData.lastName}
           onChange={handleOnchange}
@@ -45,6 +47,7 @@ function App() {
         ></input>
         <label htmlFor="emailAdress">Email Adress *</label>
         <input
+          required
           name="email"
           value={formData.email}
           onChange={handleOnchange}
@@ -53,6 +56,7 @@ function App() {
         <label htmlFor="gender">Gender *</label>
         <div>
           <input
+            required
             type="radio"
             name="gender"
             value="male"
@@ -62,6 +66,7 @@ function App() {
         </div>
         <div>
           <input
+            required
             type="radio"
             name="gender"
             value="female"
@@ -72,6 +77,7 @@ function App() {
 
         <label htmlFor="massege">Massege *</label>
         <textarea
+          required
           name="massege"
           value={formData.massege}
           onChange={handleOnchange}
