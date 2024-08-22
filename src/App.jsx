@@ -1,17 +1,52 @@
 import { useState } from "react";
+import * as yup from "yup";
 import "./App.css";
 
 function App() {
+  const [errorsObject, seterrorsObject] = useState({});
   const [formData, setformData] = useState([
     {
       firstName: "",
       lastName: "",
       email: "",
+      age: 0,
       gender: "",
       massege: "",
       ruleAccepted: false,
     },
   ]);
+  const userschema = yup.object().shape({
+    firstName: yup.string().min(4).required(),
+    lastName: yup.string().min(4).required(),
+    email: yup.string().email().required(),
+    age: yup.number().positive().integer().min(18).max(60).required(),
+    gender: yup.string().oneOf(["male", "female"]).required(),
+    massege: yup.string().required(),
+    ruleAccepted: yup.bool().oneOf([true]).required(),
+  });
+  async function testvalidation() {
+    try {
+      const response = await userschema.validate(formData, {
+        abortEarly: false,
+      });
+      console.log(response);
+
+      seterrorsObject({});
+    } catch (err) {
+      var errors = {};
+      err.inner.forEach((e) => {
+        console.log(`${e.path}:${e.massege}`);
+        errors[e.path] = e.massege;
+        console.log(errors);
+
+      });
+    }
+    seterrorsObject(errors);
+
+  }
+
+  console.log(errorsObject);
+
   function handleOnchange(event) {
     var keyName = event.target.name;
     var KeyValue = event.target.value;
@@ -22,7 +57,7 @@ function App() {
     setformData({ ...formData, [keyName]: KeyValue });
   }
   function handelFormOnSubmit(event) {
-    console.log(formData);
+    testvalidation();
     event.preventDefault();
   }
   return (
@@ -30,33 +65,53 @@ function App() {
       <form onSubmit={handelFormOnSubmit}>
         <label htmlFor="firstName">First Name *</label>
         <input
-          required
+        
           id="firstName"
           name="firstName"
           onChange={handleOnchange}
           value={formData.firstName}
           type="text"
         ></input>
+        {errorsObject.firstName ? (
+          <label>{errorsObject.firstName}</label>
+        ) : null}
+        
         <label htmlFor="lastName">Last Name *</label>
         <input
-          required
+        
           name="lastName"
           value={formData.lastName}
           onChange={handleOnchange}
           type="text"
         ></input>
+        {errorsObject.lastName ? (
+          <label>this feild is required , must be four letters at least</label>
+        ) : null}
+
+        <label htmlFor="age">Age *</label>
+        <input
+      
+          name="age"
+          value={formData.age}
+          onChange={handleOnchange}
+          type="number"
+        ></input>
+        {errorsObject.age ? <label>this feild is required </label> : null}
+
         <label htmlFor="emailAdress">Email Adress *</label>
         <input
-          required
+      
           name="email"
           value={formData.email}
           onChange={handleOnchange}
           type="email"
         ></input>
+        {errorsObject.email ? <label>this feild is required</label> : null}
+
         <label htmlFor="gender">Gender *</label>
         <div>
           <input
-            required
+          
             type="radio"
             name="gender"
             value="male"
@@ -66,7 +121,7 @@ function App() {
         </div>
         <div>
           <input
-            required
+            
             type="radio"
             name="gender"
             value="female"
@@ -77,7 +132,7 @@ function App() {
 
         <label htmlFor="massege">Massege *</label>
         <textarea
-          required
+        
           name="massege"
           value={formData.massege}
           onChange={handleOnchange}
@@ -92,9 +147,7 @@ function App() {
           <label>I consent to being contacted by the team .</label>
         </div>
 
-        <button type="submit" disabled={formData.ruleAccepted ? false : true}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
     </main>
   );
