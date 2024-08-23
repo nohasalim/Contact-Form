@@ -11,7 +11,7 @@ function App() {
       email: "",
       age: 0,
       gender: "",
-      massege: "",
+      message: "",
       ruleAccepted: false,
     },
   ]);
@@ -21,28 +21,25 @@ function App() {
     email: yup.string().email().required(),
     age: yup.number().positive().integer().min(18).max(60).required(),
     gender: yup.string().oneOf(["male", "female"]).required(),
-    massege: yup.string().required(),
+    message: yup.string().required(),
     ruleAccepted: yup.bool().oneOf([true]).required(),
   });
   async function testvalidation() {
+    // seterrorsObject({});
+
     try {
-      const response = await userschema.validate(formData, {
+      await userschema.validate(formData, {
         abortEarly: false,
       });
-      console.log(response);
-
-      seterrorsObject({});
     } catch (err) {
       var errors = {};
       err.inner.forEach((e) => {
-        console.log(`${e.path}:${e.massege}`);
-        errors[e.path] = e.massege;
+        console.log(`${e.path}:${e.message}`);
+        errors[e.path] = e.message;
         console.log(errors);
-
       });
     }
     seterrorsObject(errors);
-
   }
 
   console.log(errorsObject);
@@ -65,7 +62,6 @@ function App() {
       <form onSubmit={handelFormOnSubmit}>
         <label htmlFor="firstName">First Name *</label>
         <input
-        
           id="firstName"
           name="firstName"
           onChange={handleOnchange}
@@ -73,45 +69,45 @@ function App() {
           type="text"
         ></input>
         {errorsObject.firstName ? (
-          <label>{errorsObject.firstName}</label>
+          <label className="error">* {errorsObject.firstName}</label>
         ) : null}
-        
+
         <label htmlFor="lastName">Last Name *</label>
         <input
-        
           name="lastName"
           value={formData.lastName}
           onChange={handleOnchange}
           type="text"
         ></input>
         {errorsObject.lastName ? (
-          <label>this feild is required , must be four letters at least</label>
+          <label className="error">* {errorsObject.lastName}</label>
         ) : null}
 
         <label htmlFor="age">Age *</label>
         <input
-      
           name="age"
           value={formData.age}
           onChange={handleOnchange}
           type="number"
         ></input>
-        {errorsObject.age ? <label>this feild is required </label> : null}
+        {errorsObject.age ? (
+          <label className="error">* {errorsObject.age} </label>
+        ) : null}
 
         <label htmlFor="emailAdress">Email Adress *</label>
         <input
-      
           name="email"
           value={formData.email}
           onChange={handleOnchange}
           type="email"
         ></input>
-        {errorsObject.email ? <label>this feild is required</label> : null}
+        {errorsObject.email ? (
+          <label className="error"> * {errorsObject.email}</label>
+        ) : null}
 
         <label htmlFor="gender">Gender *</label>
         <div>
           <input
-          
             type="radio"
             name="gender"
             value="male"
@@ -121,7 +117,6 @@ function App() {
         </div>
         <div>
           <input
-            
             type="radio"
             name="gender"
             value="female"
@@ -129,14 +124,20 @@ function App() {
           ></input>
           <label htmlFor="female">Female</label>
         </div>
+        {errorsObject.gender ? (
+          <label className="error">* {errorsObject.gender}</label>
+        ) : null}
 
-        <label htmlFor="massege">Massege *</label>
+        <label htmlFor="message">Message *</label>
         <textarea
-        
-          name="massege"
-          value={formData.massege}
+          name="message"
+          value={formData.message}
           onChange={handleOnchange}
         ></textarea>
+        {errorsObject.message ? (
+          <label className="error">* {errorsObject.message}</label>
+        ) : null}
+
         <div>
           <input
             name="ruleAccepted"
@@ -146,6 +147,9 @@ function App() {
           ></input>
           <label>I consent to being contacted by the team .</label>
         </div>
+        {errorsObject.ruleAccepted ? (
+          <label className="error">* {errorsObject.ruleAccepted}</label>
+        ) : null}
 
         <button type="submit">Submit</button>
       </form>
