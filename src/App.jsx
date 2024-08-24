@@ -27,12 +27,13 @@ function App() {
     ruleAccepted: yup.bool().oneOf([true]).required(),
   });
   async function testvalidation() {
-    // seterrorsObject({});
 
     try {
       await userschema.validate(formData, {
         abortEarly: false,
       });
+      alert(`Form submitted! Congatulations ${formData.firstName}`)
+
     } catch (err) {
       var errors = {};
       err.inner.forEach((e) => {
@@ -57,10 +58,12 @@ function App() {
   }
 
   function handelFormOnSubmit(event) {
-    testvalidation();
     event.preventDefault();
-    
+    testvalidation();
+
+
   }
+
   return (
     <main>
       <form onSubmit={handelFormOnSubmit}>
@@ -178,7 +181,9 @@ function App() {
           <label className="error">* {errorsObject.ruleAccepted}</label>
         ) : null}
 
-        <button type="submit" >Submit</button>
+        <button type="submit">Submit</button>
+        
+          
       
       </form>
     </main>
