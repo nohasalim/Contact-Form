@@ -1,43 +1,85 @@
-main{
+main {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height:200vh;
+  height: 150vh;
   background-color: hsl(148, 38%, 91%);
 }
-form{
+form {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap:10px;
+  gap: 10px;
   width: 70%;
-  height:auto;
+  height: auto;
   background-color: aliceblue;
+  border-radius: 10px;
 }
-button{
-  background-color:hsl(169, 82%, 27%) ;
+button {
+  background-color: hsl(169, 82%, 27%);
   border: none;
   border-radius: 10px;
-  color:aliceblue;
+  color: aliceblue;
   padding: 10px;
   font-size: larger;
   cursor: pointer;
 }
-button:hover{
-  border:3px solid rgb(54, 232, 54) ;
+button:hover {
+  background-color: hsl(147, 56%, 34%);
 }
-label{
+label {
   color: gray;
 }
-input,textarea{
+input,
+textarea {
   padding: 10px;
   border: 1px solid gray;
   border-radius: 10px;
+  cursor: pointer;
+
 }
-textarea{
+textarea {
   height: 100px;
 }
-.error{
-  color:red;
+.error {
+  color: red;
+}
+.queryType {
+  border: 1px solid gray;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  gap:10px;
+  width: 50%;
+}
+span {
+  color: hsl(169, 82%, 27%);
+}
+.laptopScreen {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.username {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.radio:active{
+  color:hsl(169, 82%, 27%); ;
+}
+@media only screen and (max-width: 600px) {
+  .laptopScreen {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .username ,.queryType{
+    width:100%;
+  }
 }

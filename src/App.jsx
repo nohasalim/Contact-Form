@@ -1,7 +1,6 @@
 import { useState } from "react";
 import * as yup from "yup";
 import "./App.css";
-
 function App() {
   const [errorsObject, seterrorsObject] = useState({});
   const [formData, setformData] = useState([
@@ -10,7 +9,7 @@ function App() {
       lastName: "",
       email: "",
       age: 0,
-      gender: "",
+      queryType: "",
       message: "",
       ruleAccepted: false,
     },
@@ -20,7 +19,10 @@ function App() {
     lastName: yup.string().min(4).required(),
     email: yup.string().email().required(),
     age: yup.number().positive().integer().min(18).max(60).required(),
-    gender: yup.string().oneOf(["male", "female"]).required(),
+    queryType: yup
+      .string()
+      .oneOf(["general enquiry", "support request"])
+      .required(),
     message: yup.string().required(),
     ruleAccepted: yup.bool().oneOf([true]).required(),
   });
@@ -53,37 +55,52 @@ function App() {
     }
     setformData({ ...formData, [keyName]: KeyValue });
   }
+
   function handelFormOnSubmit(event) {
     testvalidation();
     event.preventDefault();
+    
   }
   return (
     <main>
       <form onSubmit={handelFormOnSubmit}>
-        <label htmlFor="firstName">First Name *</label>
-        <input
-          id="firstName"
-          name="firstName"
-          onChange={handleOnchange}
-          value={formData.firstName}
-          type="text"
-        ></input>
-        {errorsObject.firstName ? (
-          <label className="error">* {errorsObject.firstName}</label>
-        ) : null}
+        <h1>Contact Us</h1>
+        <div className="laptopScreen">
+          <div className="username">
+            <label htmlFor="firstName">
+              First Name <span>*</span>
+            </label>
+            <input
+              id="firstName"
+              name="firstName"
+              onChange={handleOnchange}
+              value={formData.firstName}
+              type="text"
+            ></input>
+            {errorsObject.firstName ? (
+              <label className="error">* {errorsObject.firstName}</label>
+            ) : null}
+          </div>
 
-        <label htmlFor="lastName">Last Name *</label>
-        <input
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleOnchange}
-          type="text"
-        ></input>
-        {errorsObject.lastName ? (
-          <label className="error">* {errorsObject.lastName}</label>
-        ) : null}
+          <div className="username">
+            <label htmlFor="lastName">
+              Last Name <span>*</span>
+            </label>
+            <input
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleOnchange}
+              type="text"
+            ></input>
+            {errorsObject.lastName ? (
+              <label className="error">* {errorsObject.lastName}</label>
+            ) : null}
+          </div>
+        </div>
 
-        <label htmlFor="age">Age *</label>
+        <label htmlFor="age">
+          Age <span>*</span>
+        </label>
         <input
           name="age"
           value={formData.age}
@@ -94,7 +111,9 @@ function App() {
           <label className="error">* {errorsObject.age} </label>
         ) : null}
 
-        <label htmlFor="emailAdress">Email Adress *</label>
+        <label htmlFor="emailAddress">
+          Email Address <span>*</span>
+        </label>
         <input
           name="email"
           value={formData.email}
@@ -105,30 +124,38 @@ function App() {
           <label className="error"> * {errorsObject.email}</label>
         ) : null}
 
-        <label htmlFor="gender">Gender *</label>
-        <div>
-          <input
-            type="radio"
-            name="gender"
-            value="male"
-            onChange={handleOnchange}
-          ></input>
-          <label htmlFor="male"> Male</label>
+        <label htmlFor="queryType">
+          Query Type <span>*</span>
+        </label>
+        <div className="laptopScreen">
+          <div className="queryType">
+            <input
+              className="radio"
+              type="radio"
+              name="queryType"
+              value="general enquiry"
+              onChange={handleOnchange}
+            ></input>
+            <label htmlFor="general enquiry"> General Enquiry</label>
+          </div>
+          <div className="queryType">
+            <input
+              className="radio"
+              type="radio"
+              name="queryType"
+              value="support request"
+              onChange={handleOnchange}
+            ></input>
+            <label htmlFor="support request">Support Request</label>
+          </div>
         </div>
-        <div>
-          <input
-            type="radio"
-            name="gender"
-            value="female"
-            onChange={handleOnchange}
-          ></input>
-          <label htmlFor="female">Female</label>
-        </div>
-        {errorsObject.gender ? (
-          <label className="error">* {errorsObject.gender}</label>
+        {errorsObject.queryType ? (
+          <label className="error">* {errorsObject.queryType}</label>
         ) : null}
 
-        <label htmlFor="message">Message *</label>
+        <label htmlFor="message">
+          Message <span>*</span>
+        </label>
         <textarea
           name="message"
           value={formData.message}
@@ -151,7 +178,8 @@ function App() {
           <label className="error">* {errorsObject.ruleAccepted}</label>
         ) : null}
 
-        <button type="submit">Submit</button>
+        <button type="submit" >Submit</button>
+      
       </form>
     </main>
   );
