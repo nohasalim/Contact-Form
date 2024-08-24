@@ -39,6 +39,9 @@ textarea {
   cursor: pointer;
 
 }
+input:hover,textarea:hover{
+  border: 2px solid rgb(101, 173, 101);
+}
 textarea {
   height: 100px;
 }
@@ -54,6 +57,11 @@ textarea {
   display: flex;
   gap:10px;
   width: 50%;
+}
+.queryType:hover{
+  border: 2px solid rgb(101, 173, 101);
+  background-color: aquamarine;
+
 }
 span {
   color: hsl(169, 82%, 27%);

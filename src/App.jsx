@@ -32,7 +32,8 @@ function App() {
       await userschema.validate(formData, {
         abortEarly: false,
       });
-      alert(`Form submitted! Congatulations ${formData.firstName}`)
+      seterrorsObject({})
+      alert(`Form submitted!\n Congatulations ${formData.firstName}`)
 
     } catch (err) {
       var errors = {};
@@ -175,7 +176,7 @@ function App() {
             onChange={handleOnchange}
             checked={formData.ruleAccepted}
           ></input>
-          <label>I consent to being contacted by the team .</label>
+          <label>I consent to being contacted by the team .<span>*</span></label>
         </div>
         {errorsObject.ruleAccepted ? (
           <label className="error">* {errorsObject.ruleAccepted}</label>
