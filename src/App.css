@@ -3,7 +3,7 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 150vh;
+  height: 100vh;
   background-color: hsl(148, 38%, 91%);
 }
 form {
@@ -81,6 +81,9 @@ span {
   color:hsl(169, 82%, 27%); ;
 }
 @media only screen and (max-width: 600px) {
+  main{
+    height: 120vh;
+  }
   .laptopScreen {
     display: flex;
     flex-direction: column;

@@ -134,7 +134,7 @@ function App() {
         <div className="laptopScreen">
           <div className="queryType">
             <input
-              className="radio"
+              className="radiostyle"
               type="radio"
               name="queryType"
               value="general enquiry"
@@ -144,7 +144,7 @@ function App() {
           </div>
           <div className="queryType">
             <input
-              className="radio"
+              className="radiostyle"
               type="radio"
               name="queryType"
               value="support request"
