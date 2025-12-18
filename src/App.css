@@ -3,8 +3,7 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* height:auto; */
-  padding:30px 0px
+  padding:30px 0px;
   background-color: hsl(148, 38%, 91%);
 }
 form {
